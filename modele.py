@@ -11,18 +11,79 @@ class Player:
         self.classement = classement
         #indiquer que le chiffre est forcément positif? Mettre if où on réupère la valeur
 
-class Tournaments:
-    def __init__(self, name, rounds):
-        name =
-        rounds = 4
-        round_name = 1
-        for round in rounds:
-            round_name += 1
-            running = True
-            while running:
-                self.view.informations_tour()
-                self.match()
-                running = self.view.prompt_for_new_game()
+    def serialize(self):
+        player = {'last_name': self.last_name, 'first_name': self.first_name, 'date_of_birth': self.date_of_birth, 'sexe': self.sexe, 'classement': self.classement}
+        return player
+
+    def deserialize(self, player):
+        last_name = player['last_name']
+        first_name = player['first_name']
+        date_of_birth = player['date_of_birth']
+        sexe = player['sexe']
+        classement = player['classement']
+        player = Player(last_name=last_name, first_name=first_name, date_of_birth=date_of_birth, sexe=sexe, classement=classement)
+        return player
+
+    #db = TinyDB('db.json')
+    #db.insert(players)
+    #db.all()
+    def create(self):
+        db = TinyDB('db.json')
+        db.insert(self.serialize())
+    def read(self):
+        object = Query()
+        results = db.search(object.type == '')
+        for result in results:
+            print(result)
+        #print(self.deserialize())
+    def update(self):
+        db.update({}, self.type == '')
+        db.all
+    def delete(self):
+        db.remove()
+        db.all
+
+class Tournament:
+    def __init__(self, name, place, date, rounds, players, time_control, description):
+        self.name = name
+        self.place = place
+        self.date = date
+        self.rounds = rounds
+        self. players = players
+        self.time_control = time_control
+        self.description = description
+
+
+    def serialize(self):
+        tournament = {'name': self.name, 'place': self.place, 'date': self.date, 'rounds': self.rounds, 'players': self.players, 'time_control': self.time_control, 'descirption': self.description}
+        return tournament
+
+    def deserialize(self, tournament):
+        name = tournament['name']
+        place = tournament['place']
+        date = tournament['date']
+        rounds = tournament['rounds']
+        players = tournament['players']
+        time_control = tournament['time_control']
+        description = tournament['description']
+        tournament = Tournament(name=name, place=place, date=date, rounds=rounds, players=players, time_control=time_control, description=description)
+        return tournament
+
+    def create(self):
+        db = TinyDB('db.json')
+        db.insert(self.serialize())
+    def read(self):
+        object = Query()
+        results = db.search(object.type == '')
+        for result in results:
+            print(result)
+        #print(self.deserialize())
+    def update(self):
+        db.update({}, self.type == '')
+        db.all
+    def delete(self):
+        db.remove()
+        db.all
 
 # variable globale
 players =  list()
