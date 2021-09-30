@@ -33,20 +33,20 @@ class Player:
     def read(cls, last_name):
         playerQuery = Query()
         results = db.search(playerQuery.last_name == last_name)
-        players = Player.deserialize(results[])
-        for player in players:
-            print(player)
+        player = Player.deserialize(results[0])
+        for result in results:
+            print(result)
 
     def update(self, last_name):
         playerQuery = Query()
         results = db.search(playerQuery.last_name == last_name)
-        players = Player.deserialize(results[])
+        player = Player.deserialize(results[0])
         db.update(playerQuery.last_name == last_name)
 
     def delete(self, last_name):
         playerQuery = Query()
         results = db.search(playerQuery.last_name == last_name)
-        players = Player.deserialize(results[])
+        player = Player.deserialize(results[0])
         db.remove(self.deserialize)
 
 class Tournament:
@@ -82,17 +82,18 @@ class Tournament:
     def read(cls, last_name):
         playerQuery = Query()
         results = db.search(playerQuery.last_name == last_name)
-        players = Player.deserialize(results[])
-        for player in players:
-            print(player)
+        player = Player.deserialize(results[0])
+        for result in results:
+            print(result)
 
     def update(self, last_name):
         playerQuery = Query()
         results = db.search(playerQuery.last_name == last_name)
-        players = Player.deserialize(results[])
+        player = Player.deserialize(results[0])
         db.update(playerQuery.last_name == last_name)
 
     def delete(self, last_name):
         playerQuery = Query()
         results = db.search(playerQuery.last_name == last_name)
-        db.remove()
+        player = Player.deserialize(results[0])
+        db.remove(self)
