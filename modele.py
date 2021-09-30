@@ -79,21 +79,21 @@ class Tournament:
         db.insert(self.serialize())
 
     @classmethod
-    def read(cls, last_name):
-        playerQuery = Query()
-        results = db.search(playerQuery.last_name == last_name)
-        player = Player.deserialize(results[0])
+    def read(cls, name):
+        tournamentQuery = Query()
+        results = db.search(tournamentQuery.name == name)
+        tournament = Tournament.deserialize(results[0])
         for result in results:
             print(result)
 
-    def update(self, last_name):
-        playerQuery = Query()
-        results = db.search(playerQuery.last_name == last_name)
-        player = Player.deserialize(results[0])
-        db.update(playerQuery.last_name == last_name)
+    def update(self, name):
+        tournamentQuery = Query()
+        results = db.search(tournamentQuery.name == name)
+        tournament = Tournament.deserialize(results[0])
+        db.update(tournamentQuery.name == name)
 
-    def delete(self, last_name):
-        playerQuery = Query()
-        results = db.search(playerQuery.last_name == last_name)
-        player = Player.deserialize(results[0])
+    def delete(self, name):
+        tournamentQuery = Query()
+        results = db.search(tournamentQuery.name == name)
+        tournament = Tournament.deserialize(results[0])
         db.remove(self)
