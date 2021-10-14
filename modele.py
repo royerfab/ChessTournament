@@ -48,7 +48,7 @@ class Player:
             print(result)
 
     def update(self, data):
-        if type(data)==dict{}:
+        if type(data)==dict:
             playerQuery = Query()
             db.update(data, playerQuery.last_name == self.last_name)
             return True
@@ -107,7 +107,7 @@ class Tournament:
             print(result)
 
     def update(self, data):
-        if type(data)==dict{}:
+        if type(data)==dict:
             tournamentQuery = Query()
             db.update(data, tournamentQuery.name == self.name)
             return True
