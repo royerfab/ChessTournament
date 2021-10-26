@@ -1,6 +1,6 @@
 from modele import Tournament
 
-class tournamentView:
+class TournamentView:
 
     def menu(self):
         print("Bienvenue")
@@ -42,8 +42,9 @@ class tournamentView:
               "2 Revenir au menu")
         choix = input("Tapez votre choix")
         choice = int(choix)
-        if choice == 1 and not name or place or date or rounds or players or time_control or description or choose_players :
-            return None
+        if choice == 1 and not name or not place or not date or not rounds or not players or not time_control or not description or not choose_players :
+            print("Il manque une information!!!")
+            self.prompt_for_tournament()
         elif choice == 1:
             self.create_first_turn()
             return new_tournament
@@ -62,7 +63,8 @@ class tournamentView:
         choix = input("Tapez votre choix")
         choice = int(choix)
         if choice == 1 and not turn_name:
-            return None
+            print("Il manque une information!!!")
+            self.create_first_turn()
         elif choice == 1:
             self.create_other_turn()
             return turn_name
@@ -82,10 +84,12 @@ class tournamentView:
               "2 Mettre fin au tournoi")
         choix = input("Tapez votre choix")
         choice = int(choix)
-        if choice == 1 and not turn_name or result_1 and result_2:
-            return None
-        elif choice == 2 and not result_1 or result_2:
-            return None
+        if choice == 1 and not turn_name or not result_1 or not result_2:
+            print("Il manque une information!!!")
+            self.create_other_turns()
+        elif choice == 2 and not result_1 or not result_2:
+            print("Il manque une information!!!")
+            self.create_other_turns()
         elif choice == 1:
             self.create_other_turn()
             return turn_name, result_1, result_2
@@ -96,7 +100,7 @@ class tournamentView:
             print("Le choix n'est pas valide!!!")
             self.create_other_turns()
 
-    def update_ranking(self):
+    def update_ranking_menu(self):
         update_ranking_name = input("Taper le nom du joueur :")
         update_ranking_rank = input("Taper le nouveau rang du joueur :")
         print("Entrez le numéro correspondant à l'action que vous souhaitez accomplir."
@@ -104,8 +108,9 @@ class tournamentView:
               "2 Revenir au menu")
         choix = input("Tapez votre choix")
         choice = int(choix)
-        if choice == 1 and not update_ranking_name or update_ranking_rank:
-            return None
+        if choice == 1 and not update_ranking_name or not update_ranking_rank:
+            print("Il manque une information!!!")
+            self.update_ranking_menu()
         elif choice == 1:
             self.menu()
             return update_ranking_name, update_ranking_rank
@@ -113,7 +118,7 @@ class tournamentView:
             self.menu()
         else:
             print("Le choix n'est pas valide!!!")
-            self.update_ranking()
+            self.update_ranking_menu()
 
     def show_lists_tournament(self):
         print("Entrez le numéro correspondant à l'action que vous souhaitez accomplir."
@@ -143,7 +148,8 @@ class tournamentView:
         choix = input("Tapez votre choix")
         choice = int(choix)
         if choice == 1 and not turns_list:
-            return None
+            print("Il manque une information!!!")
+            self.turns_list()
         elif choice == 1:
             print()
         elif choice == 2:
@@ -160,7 +166,8 @@ class tournamentView:
         choix = input("Tapez votre choix")
         choice = int(choix)
         if choice == 1 and not matchs_list:
-            return None
+            print("Une information n'est pas valide!!!")
+            self.matchs_list()
         elif choice == 1:
             print()
         elif choice == 2:
@@ -170,5 +177,5 @@ class tournamentView:
             self.matchs_list()
 
 
-tournamentView = tournamentView()
+tournamentView = TournamentView()
 tournamentView.menu()

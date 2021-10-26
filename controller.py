@@ -1,50 +1,71 @@
 from modele import Player, Tournament
-import playerView
-import tournamentView
-import numpy
+from playerView import PlayerView
+from tournamentView import TournamentView
+import random
 
-class playerController:
-    def create_player(self, new_player):
-        playerView.prompt_for_player()
-        if input == 1:
-            player = Player(new_player)
+class PlayerController:
 
+    playerView = PlayerView()
+    tournamentView = TournamentView()
 
-    def create_player(self, new_player):
-        playerView.prompt_for_player()
-        if input == 1:
-            Player.create(new_player)
+    def create_player(self):
+        try:
+            new_player = self.playerView.prompt_for_player()
+            player = Player(**new_player)
+            player.create()
+            return True
+        except Exception as e:
+            print('Erreur:', str(e))
+            return False
 
     def players_alphabetic_order(self, players):
-        playerView.show_lists_player()
-        if input == 2:
-            sorted_list = sorted(Player.getAllPlayer())
-            print(sorted_list)
-
-    def players_rank_order(self, players):
-        playerView.show_lists_player()
-        if input == 2:
-            sorted_list = sorted(Player.getAllPlayer())
-            print(sorted_list)
+        try:
+            players = Player.getAll()
+            self.playerView.show_lists_player(players)
+            return True
+        except Exception as e:
+            print('Erreur:', str(e))
+            return False
 
 class tournamentController:
 
     def create_tournament(self, new_tournament):
-        tournamentView.prompt_for_tournament()
-        if input == 1:
-            tournament = Tournament(new_tournament)
+        try:
+            new_tournament = self.tournamentView.prompt_for_tournament()
+            tournament = Tournament(**new_tournament)
+            tournament.create()
+            return True
+        except Exception as e:
+            print('Erreur:', str(e))
+            return False
 
     def first_turn(self):
-        tournamentView.create_first_turn()
-        if input == 1:
-            players_turn = numpy.random.choice(choose_players, 2)
+        try:
+            self.tournamentView.prompt_for_tournament()
+            self.tournamentView.create_first_turn()
+            players_turn = random.choice(choose_players, 8)
             return players_turn
-
-    players_turn = numpy.random.sample(choose_players, 8)
+            return True
+        except Exception as e:
+            print('Erreur:', str(e))
+            return False
 
     def other_turn(self):
-        tournamentView.create_other_turn()
-        if input == 1:
-            players_turn = numpy.random.choice(choose_players, 2)
-            return players_turn
+        try:
+            self.TournamentView.create_other_turns()
+            #players_turn = numpy.random.choice(choose_players, 2)
+            #return players_turn
+            return True
+        except Exception as e:
+            print('Erreur:', str(e))
+            return False
 
+    def update_ranking(self):
+        try:
+            update_player = self.playerView.update_ranking_menu()
+            player = update_ranking_name
+            player.update({'classement': str(update_ranking_rank)}, Player.type == update_ranking_name)
+            return True
+        except Exception as e:
+            print('Erreur:', str(e))
+            return False

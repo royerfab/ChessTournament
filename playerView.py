@@ -1,6 +1,7 @@
 from modele import Player
+import controller
 
-class playerView:
+class PlayerView:
 
     def menu(self):
         print("Bienvenue")
@@ -22,7 +23,7 @@ class playerView:
         elif choice == 4:
             self.show_lists_tournament()
         elif choice == 5:
-            self.update_ranking()
+            self.update_ranking_menu()
         elif choice != 1 or 2 or 3 or 4 or 5:
             print("Le choix n'est pas valide !!!")
             self.menu()
@@ -39,10 +40,12 @@ class playerView:
               "2 Revenir au menu")
         choix = input("Tapez votre choix")
         choice = int(choix)
-        if choice == 1 and not last_name or first_name or date_of_birth or sexe or classement :
-            return None
+        if choice == 1 and not last_name or not first_name or not date_of_birth or not sexe or not classement :
+            print("Il manque une information!!!")
+            self.prompt_for_player()
         elif sexe != 'H' or sexe != 'F' :
-            return None
+            print("Il manque une information!!!")
+            self.prompt_for_player()
         elif choice == 1:
             return new_player
             self.menu()
@@ -62,9 +65,13 @@ class playerView:
         choix = input("Tapez votre choix")
         choice = int(choix)
         if choice == 1:
-            print()
+            players = controller.players_alphabetic_order()
+            sorted_list = sorted(players.split())              #sorted(Player.getAllPlayer())
+            print(sorted_list)
         elif choice == 2:
-            print()
+            players = controller.players_alphabetic_order()
+            sorted_list = sorted(players)              #sorted(Player.getAllPlayer())
+            print(sorted_list)
         elif choice == 3:
             print()
         elif choice == 4:
@@ -75,5 +82,26 @@ class playerView:
             print("Le choix n'est pas valide!!!")
             self.show_lists_player()
 
-playerView = playerView()
+    def update_ranking_menu(self):
+        update_ranking_name = input("Taper le nom du joueur :")
+        update_ranking_rank = input("Taper le nouveau rang du joueur :")
+        print("Entrez le numéro correspondant à l'action que vous souhaitez accomplir."
+              "1 Valider la modification du classement d'un joueur"
+              "2 Revenir au menu")
+        choix = input("Tapez votre choix")
+        choice = int(choix)
+        if choice == 1 and not update_ranking_name or not update_ranking_rank:
+            print("Il manque une information!!!")
+            self.update_ranking_menu()
+        elif choice == 1:
+            self.menu()
+            return update_ranking_name, update_ranking_rank
+        elif choice == 2:
+            self.menu()
+        else:
+            print("Le choix n'est pas valide!!!")
+            self.update_ranking_menu()
+
+
+playerView = PlayerView()
 playerView.menu()
